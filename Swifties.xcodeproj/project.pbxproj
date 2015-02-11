@@ -11,6 +11,7 @@
 		9B312D371A8BE9B300702F7D /* Swifties.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B312D2B1A8BE9B300702F7D /* Swifties.framework */; };
 		9B312D3E1A8BE9B400702F7D /* SwiftiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */; };
 		9B312D481A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */; };
+		9B312D891A8C000500702F7D /* BasicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D881A8C000500702F7D /* BasicDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		9B312D3C1A8BE9B400702F7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftiesTests.swift; sourceTree = "<group>"; };
 		9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetworkActivity.swift"; sourceTree = "<group>"; };
+		9B312D881A8C000500702F7D /* BasicDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 		9B312D2D1A8BE9B300702F7D /* Swifties */ = {
 			isa = PBXGroup;
 			children = (
+				9B312D881A8C000500702F7D /* BasicDataModel.swift */,
 				9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */,
 				9B312D301A8BE9B300702F7D /* Swifties.h */,
 				9B312D2E1A8BE9B300702F7D /* Supporting Files */,
@@ -213,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B312D891A8C000500702F7D /* BasicDataModel.swift in Sources */,
 				9B312D481A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
