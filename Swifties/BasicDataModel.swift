@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class BasicDataModel: NSObject {
+public class BasicDataModel: NSObject {
     
     // MARK: - Filesystem hooks
     lazy var modelName: String = {
@@ -39,14 +39,14 @@ class BasicDataModel: NSObject {
         return storeURL
     }()
     
-    lazy var applicationDocumentsDirectory: NSURL = {
+    public lazy var applicationDocumentsDirectory: NSURL = {
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1] as NSURL
     }()
     
     // MARK: - Core Data stack
     
-    func preinstallDefaultDatabase() {
+    public func preinstallDefaultDatabase() {
         let noLocalDBExists = !NSFileManager.defaultManager().fileExistsAtPath(self.localStoreURL.absoluteString!)
         let noDefaultDBExists = !NSFileManager.defaultManager().fileExistsAtPath(self.defaultStoreURL.absoluteString!)
         var error: NSError? = nil
@@ -57,11 +57,11 @@ class BasicDataModel: NSObject {
         }
     }
     
-    lazy var managedObjectModel: NSManagedObjectModel = {
+    public lazy var managedObjectModel: NSManagedObjectModel = {
         return NSManagedObjectModel(contentsOfURL: self.modelURL)!
     }()
     
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+    public lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
@@ -85,7 +85,7 @@ class BasicDataModel: NSObject {
         return coordinator
     }()
     
-    lazy var managedObjectContext: NSManagedObjectContext? = {
+    public lazy var managedObjectContext: NSManagedObjectContext? = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
         if coordinator == nil {
@@ -98,7 +98,7 @@ class BasicDataModel: NSObject {
     
     // MARK: - Core Data Saving support
     
-    func saveContext () {
+    public func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
             if moc.hasChanges && !moc.save(&error) {
