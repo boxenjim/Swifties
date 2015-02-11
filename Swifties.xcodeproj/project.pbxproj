@@ -10,6 +10,7 @@
 		9B312D311A8BE9B300702F7D /* Swifties.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B312D301A8BE9B300702F7D /* Swifties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B312D371A8BE9B300702F7D /* Swifties.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B312D2B1A8BE9B300702F7D /* Swifties.framework */; };
 		9B312D3E1A8BE9B400702F7D /* SwiftiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */; };
+		9B312D481A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		9B312D361A8BE9B300702F7D /* SwiftiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftiesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B312D3C1A8BE9B400702F7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftiesTests.swift; sourceTree = "<group>"; };
+		9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetworkActivity.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		9B312D2D1A8BE9B300702F7D /* Swifties */ = {
 			isa = PBXGroup;
 			children = (
+				9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */,
 				9B312D301A8BE9B300702F7D /* Swifties.h */,
 				9B312D2E1A8BE9B300702F7D /* Supporting Files */,
 			);
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B312D481A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +323,7 @@
 		9B312D421A8BE9B400702F7D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -328,12 +333,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		9B312D431A8BE9B400702F7D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
