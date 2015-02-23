@@ -1,5 +1,5 @@
 # Swifties
-Swift + iOS Recipies
+Swift + Recipies
 
 ## Getting setup
 1. clone Swifties
