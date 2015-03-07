@@ -12,6 +12,9 @@
 		9B312D3E1A8BE9B400702F7D /* SwiftiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */; };
 		9B312D481A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */; };
 		9B312D891A8C000500702F7D /* BasicDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D881A8C000500702F7D /* BasicDataModel.swift */; };
+		9B88745E1AAB599200989098 /* LaunchPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B88745D1AAB599200989098 /* LaunchPad.swift */; };
+		9B88745F1AAB599200989098 /* LaunchPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B88745D1AAB599200989098 /* LaunchPad.swift */; };
+		9B8874611AAB621C00989098 /* LaunchPadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8874601AAB621C00989098 /* LaunchPadTests.swift */; };
 		9BF960DE1A9BDBFC00136C33 /* NSString+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF960DD1A9BDBFC00136C33 /* NSString+Helpers.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +37,8 @@
 		9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftiesTests.swift; sourceTree = "<group>"; };
 		9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetworkActivity.swift"; sourceTree = "<group>"; };
 		9B312D881A8C000500702F7D /* BasicDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicDataModel.swift; sourceTree = "<group>"; };
+		9B88745D1AAB599200989098 /* LaunchPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchPad.swift; sourceTree = "<group>"; };
+		9B8874601AAB621C00989098 /* LaunchPadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchPadTests.swift; sourceTree = "<group>"; };
 		9BF960DD1A9BDBFC00136C33 /* NSString+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +82,7 @@
 		9B312D2D1A8BE9B300702F7D /* Swifties */ = {
 			isa = PBXGroup;
 			children = (
+				9B88745D1AAB599200989098 /* LaunchPad.swift */,
 				9B312D881A8C000500702F7D /* BasicDataModel.swift */,
 				9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */,
 				9BF960DD1A9BDBFC00136C33 /* NSString+Helpers.swift */,
@@ -97,6 +103,7 @@
 		9B312D3A1A8BE9B400702F7D /* SwiftiesTests */ = {
 			isa = PBXGroup;
 			children = (
+				9B8874601AAB621C00989098 /* LaunchPadTests.swift */,
 				9B312D3D1A8BE9B400702F7D /* SwiftiesTests.swift */,
 				9B312D3B1A8BE9B400702F7D /* Supporting Files */,
 			);
@@ -221,6 +228,7 @@
 			files = (
 				9BF960DE1A9BDBFC00136C33 /* NSString+Helpers.swift in Sources */,
 				9B312D891A8C000500702F7D /* BasicDataModel.swift in Sources */,
+				9B88745E1AAB599200989098 /* LaunchPad.swift in Sources */,
 				9B312D481A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +237,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B88745F1AAB599200989098 /* LaunchPad.swift in Sources */,
 				9B312D3E1A8BE9B400702F7D /* SwiftiesTests.swift in Sources */,
+				9B8874611AAB621C00989098 /* LaunchPadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
