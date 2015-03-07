@@ -9,8 +9,17 @@
 import UIKit
 import StoreKit
 
+protocol LaunchPadDelegate {
+    func launchPadDidLaunchApplication(launchPad: LaunchPad)
+    func launchPadDidPresentApplicationAppStorePage(launchPad: LaunchPad)
+    func launchPadDidDismissAppStore(launchPad: LaunchPad)
+    func launchPadWillBeginPolling(launchPad: LaunchPad)
+    func launchPadDidEndPolling(launchPad: LaunchPad, success: Bool)
+}
+
 public class LaunchPad: NSObject, SKStoreProductViewControllerDelegate {
     
+    var delegate: LaunchPadDelegate?
     var appStoreID: String?
     var appURLScheme: String?
     var polling = false
@@ -59,7 +68,7 @@ public class LaunchPad: NSObject, SKStoreProductViewControllerDelegate {
             
             polling = true
             enqueuePoll()
-            // notify
+            delegate?.launchPadWillBeginPolling(self)
         }
     }
     
@@ -79,13 +88,13 @@ public class LaunchPad: NSObject, SKStoreProductViewControllerDelegate {
     
     public func cancelPolling() {
         polling = false
-        // notify
+        delegate?.launchPadDidEndPolling(self, success: targetAppInstalled)
     }
     
     // Launch
     func launchApp() -> Bool {
         if targetAppInstalled {
-            // notify
+            delegate?.launchPadDidLaunchApplication(self)
             UIApplication.sharedApplication().openURL(appLaunchURL!)
             return true
         }
@@ -100,9 +109,8 @@ public class LaunchPad: NSObject, SKStoreProductViewControllerDelegate {
             let appInfo = [SKStoreProductParameterITunesItemIdentifier:appID]
             storeController.loadProductWithParameters(appInfo, completionBlock: { (result, error) -> Void in
                 if result {
-                    fromViewController.presentViewController(storeController, animated: true, completion: { () -> Void in
-                        // notify
-                    })
+                    fromViewController.presentViewController(storeController, animated: true, completion: { () -> Void in })
+                    self.delegate?.launchPadDidPresentApplicationAppStorePage(self)
                 }
             })
         }
@@ -117,8 +125,7 @@ public class LaunchPad: NSObject, SKStoreProductViewControllerDelegate {
     // SKStoreProductViewControllerDelegate
     public func productViewControllerDidFinish(viewController: SKStoreProductViewController!) {
         beginPolling(300)
-        viewController.presentingViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
-            // notify
-        })
+        viewController.presentingViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in })
+        delegate?.launchPadDidDismissAppStore(self)
     }
 }

@@ -34,7 +34,7 @@ class LaunchPadTests: XCTestCase {
         let appStoreID = "12345678"
         let appURLScheme = "appScheme"
         let launchPad = LaunchPad()
-        launchPad.configure(appStoreID, appURLScheme: appURLScheme)
+        launchPad.configureLaunchPad(appStoreID, appURLScheme: appURLScheme)
         
         XCTAssertEqual(launchPad.appStoreID!, appStoreID, "appStoreID should match, expected \(appStoreID), but got \(launchPad.appStoreID)")
         XCTAssertEqual(launchPad.appURLScheme!, appURLScheme, "appURLScheme should match, expected \(appURLScheme), but got \(launchPad.appURLScheme)")
