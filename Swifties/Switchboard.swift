@@ -8,8 +8,8 @@
 
 import UIKit
 
-class Switchboard: NSObject {
-    func open(url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+public class Switchboard: NSObject {
+    public func open(url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         if let urlTypes = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleURLTypes") as? NSArray {
             for urlType in urlTypes {
                 if let type = urlType as? NSDictionary {
