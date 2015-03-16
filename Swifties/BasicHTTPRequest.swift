@@ -8,30 +8,30 @@
 
 import UIKit
 
-protocol BasicHTTPRequestDelegate {
+public protocol BasicHTTPRequestDelegate {
     func handleData(data: NSData!, response: NSURLResponse!, error: NSError!, fromRequest: BasicHTTPRequest!)
 }
 
-class BasicHTTPRequest: NSObject {
+public class BasicHTTPRequest: NSObject {
     
     var scheme: String?
     var host: String?
     var path: String?
     
-    init(scheme: String!, host: String!, path: String?) {
+    public init(scheme: String!, host: String!, path: String?) {
         self.scheme = scheme
         self.host = host
         self.path = path
     }
     
-    init(baseURLString: String!) {
+    public init(baseURLString: String!) {
         let components = NSURLComponents(string: baseURLString)
         self.scheme = components?.scheme
         self.host = components?.host
         self.path = components?.path
     }
     
-    init(baseURL: NSURL!) {
+    public init(baseURL: NSURL!) {
         let components = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
         self.scheme = components?.scheme
         self.host = components?.host
@@ -68,14 +68,14 @@ class BasicHTTPRequest: NSObject {
         task.resume()
     }
     
-    func get(pathComponent: String!, queryItems: [NSURLQueryItem]?, delegate: BasicHTTPRequestDelegate?) {
+    public func get(pathComponent: String!, queryItems: [NSURLQueryItem]?, delegate: BasicHTTPRequestDelegate?) {
         if let request = request(pathComponent, queryItems: queryItems) {
             request.HTTPMethod = "GET"
             send(request, delegate: delegate)
         }
     }
     
-    func post(pathComponent: String!, queryItems: [NSURLQueryItem]?, httpBodyParams: [String:String]?, delegate: BasicHTTPRequestDelegate?) {
+    public func post(pathComponent: String!, queryItems: [NSURLQueryItem]?, httpBodyParams: [String:String]?, delegate: BasicHTTPRequestDelegate?) {
         
     }
 }
