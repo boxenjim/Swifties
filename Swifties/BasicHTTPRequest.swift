@@ -68,6 +68,12 @@ public class BasicHTTPRequest: NSObject {
         task.resume()
     }
     
+    public func configure(scheme: String!, host: String!, path: String?) {
+        self.scheme = scheme
+        self.host = host
+        self.path = path
+    }
+    
     public func get(pathComponent: String!, queryItems: [NSURLQueryItem]?, delegate: BasicHTTPRequestDelegate?) {
         if let request = request(pathComponent, queryItems: queryItems) {
             request.HTTPMethod = "GET"
