@@ -1,9 +1,21 @@
 # Swifties
 Swift + Recipies
 
-## Getting setup
-1. clone Swifties
-2. drag and drop the `Swifties.xcodeproj` file into your project
-3. add `Swifties.framework` under the `Linked Frameworks and Libraries` section of `General`
-4. add `Swifties.framework` under the `Embed Frameworks` section of `Build Phases`
-4. `import Swifties` wherever you want to use it
+## Installation
+### Carthage
+A simple, decentralized dependency manager for Cocoa, [Carthage](https://github.com/Carthage/Carthage) is intended
+to be the simplest way to add frameworks to your Cocoa application.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+To integrate Swifties into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "boxenjim/Swifties"
+```
+
+Please refer to the Carthage [documentation](https://github.com/Carthage/Carthage#if-youre-building-for-ios) to build for ios for more specific details
