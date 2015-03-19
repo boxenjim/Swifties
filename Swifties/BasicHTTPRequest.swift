@@ -31,7 +31,9 @@ public class BasicHTTPRequest: NSObject {
     
     public init(scheme: String!, host: String!, path: String?, HTTPHeaders: [String:String]?) {
         super.init()
-        self.configure(scheme, host: host, path: path)
+        self.scheme = scheme
+        self.host = host
+        self.path = check(path)
         if let headers = HTTPHeaders {
             configure(headers)
         }
@@ -39,7 +41,10 @@ public class BasicHTTPRequest: NSObject {
     
     public init(baseURLString: String!, HTTPHeaders: [String:String]?) {
         super.init()
-        configure(baseURLString)
+        let comps = NSURLComponents(string: baseURLString)
+        scheme = comps?.scheme
+        host = comps?.host
+        path = comps?.path
         if let headers = HTTPHeaders {
             configure(headers)
         }
@@ -47,7 +52,10 @@ public class BasicHTTPRequest: NSObject {
     
     public init(baseURL: NSURL!, HTTPHeaders: [String:String]?) {
         super.init()
-        configure(baseURL)
+        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
+        scheme = comps?.scheme
+        host = comps?.host
+        path = comps?.path
         if let headers = HTTPHeaders {
             configure(headers)
         }
@@ -63,15 +71,16 @@ public class BasicHTTPRequest: NSObject {
             components.queryItems = query
         }
         
-        var request: NSMutableURLRequest? = nil
-        
         if var url = components.URL {
             url = url.URLByAppendingPathComponent(pathComponent)
-            request = NSMutableURLRequest(URL: url)
-            request?.allHTTPHeaderFields = HTTPHeaderFields
+            let request = NSMutableURLRequest(URL: url)
+            for (key, value) in HTTPHeaderFields {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+            return request
         }
         
-        return request
+        return nil
     }
     
     public func send(request: NSURLRequest!, delegate: BasicHTTPRequestDelegate?) {
@@ -84,25 +93,25 @@ public class BasicHTTPRequest: NSObject {
         task.resume()
     }
     
-    public func configure(scheme: String!, host: String!, path: String?) {
-        self.scheme = scheme
-        self.host = host
-        self.path = check(path)
-    }
-    
-    public func configure(baseURLString: String!) {
-        let comps = NSURLComponents(string: baseURLString)
-        scheme = comps?.scheme
-        host = comps?.host
-        path = comps?.path
-    }
-    
-    public func configure(baseURL: NSURL!) {
-        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
-        scheme = comps?.scheme
-        host = comps?.host
-        path = comps?.path
-    }
+//    public func configure(scheme: String!, host: String!, path: String?) {
+//        self.scheme = scheme
+//        self.host = host
+//        self.path = check(path)
+//    }
+//    
+//    public func configure(baseURLString: String!) {
+//        let comps = NSURLComponents(string: baseURLString)
+//        scheme = comps?.scheme
+//        host = comps?.host
+//        path = comps?.path
+//    }
+//    
+//    public func configure(baseURL: NSURL!) {
+//        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
+//        scheme = comps?.scheme
+//        host = comps?.host
+//        path = comps?.path
+//    }
     
     public func configure(HTTPHeaders: [String:String]) {
         for (key, value) in HTTPHeaders {
