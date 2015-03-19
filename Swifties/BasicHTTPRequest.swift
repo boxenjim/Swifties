@@ -31,9 +31,7 @@ public class BasicHTTPRequest: NSObject {
     
     public init(scheme: String!, host: String!, path: String?, HTTPHeaders: [String:String]?) {
         super.init()
-        self.scheme = scheme
-        self.host = host
-        self.path = check(path)
+        configure(scheme, host: host, path: path)
         if let headers = HTTPHeaders {
             configure(headers)
         }
@@ -41,10 +39,7 @@ public class BasicHTTPRequest: NSObject {
     
     public init(baseURLString: String!, HTTPHeaders: [String:String]?) {
         super.init()
-        let comps = NSURLComponents(string: baseURLString)
-        scheme = comps?.scheme
-        host = comps?.host
-        path = comps?.path
+        configure(baseURLString)
         if let headers = HTTPHeaders {
             configure(headers)
         }
@@ -52,10 +47,7 @@ public class BasicHTTPRequest: NSObject {
     
     public init(baseURL: NSURL!, HTTPHeaders: [String:String]?) {
         super.init()
-        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
-        scheme = comps?.scheme
-        host = comps?.host
-        path = comps?.path
+        configure(baseURL)
         if let headers = HTTPHeaders {
             configure(headers)
         }
@@ -93,25 +85,25 @@ public class BasicHTTPRequest: NSObject {
         task.resume()
     }
     
-//    public func configure(scheme: String!, host: String!, path: String?) {
-//        self.scheme = scheme
-//        self.host = host
-//        self.path = check(path)
-//    }
-//    
-//    public func configure(baseURLString: String!) {
-//        let comps = NSURLComponents(string: baseURLString)
-//        scheme = comps?.scheme
-//        host = comps?.host
-//        path = comps?.path
-//    }
-//    
-//    public func configure(baseURL: NSURL!) {
-//        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
-//        scheme = comps?.scheme
-//        host = comps?.host
-//        path = comps?.path
-//    }
+    public func configure(scheme: String!, host: String!, path: String?) {
+        self.scheme = scheme
+        self.host = host
+        self.path = check(path)
+    }
+    
+    public func configure(baseURLString: String!) {
+        let comps = NSURLComponents(string: baseURLString)
+        scheme = comps?.scheme
+        host = comps?.host
+        path = comps?.path
+    }
+    
+    public func configure(baseURL: NSURL!) {
+        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
+        scheme = comps?.scheme
+        host = comps?.host
+        path = comps?.path
+    }
     
     public func configure(HTTPHeaders: [String:String]) {
         for (key, value) in HTTPHeaders {
