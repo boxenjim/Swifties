@@ -29,27 +29,28 @@ public class BasicHTTPRequest: NSObject {
         return nil
     }
     
-    public init(scheme: String!, host: String!, path: String?) {
+    public init(scheme: String!, host: String!, path: String?, HTTPHeaders: [String:String]?) {
         super.init()
-        self.scheme = scheme
-        self.host = host
-        self.path = check(path)
+        self.configure(scheme, host: host, path: path)
+        if let headers = HTTPHeaders {
+            configure(headers)
+        }
     }
     
-    public init(baseURLString: String!) {
+    public init(baseURLString: String!, HTTPHeaders: [String:String]?) {
         super.init()
-        let components = NSURLComponents(string: baseURLString)
-        scheme = components?.scheme
-        host = components?.host
-        path = components?.path
+        configure(baseURLString)
+        if let headers = HTTPHeaders {
+            configure(headers)
+        }
     }
     
-    public init(baseURL: NSURL!) {
+    public init(baseURL: NSURL!, HTTPHeaders: [String:String]?) {
         super.init()
-        let components = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
-        scheme = components?.scheme
-        host = components?.host
-        path = components?.path
+        configure(baseURL)
+        if let headers = HTTPHeaders {
+            configure(headers)
+        }
     }
     
     public func request(pathComponent: String!, queryItems: [NSURLQueryItem]?) -> NSMutableURLRequest? {
