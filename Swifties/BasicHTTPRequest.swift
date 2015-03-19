@@ -14,31 +14,45 @@ public protocol BasicHTTPRequestDelegate {
 
 public class BasicHTTPRequest: NSObject {
     
-    var scheme: String?
-    var host: String?
-    var path: String?
+    var scheme: String? = nil
+    var host: String? = nil
+    var path: String? = nil
+    var HTTPHeaderFields: [String:String] = [:]
+    
+    private func check(path: String?) -> String? {
+        if var p = path {
+            if !p.hasPrefix("/") {
+                p = "/\(p)"
+            }
+            return p
+        }
+        return nil
+    }
     
     public init(scheme: String!, host: String!, path: String?) {
+        super.init()
         self.scheme = scheme
         self.host = host
-        self.path = path
+        self.path = check(path)
     }
     
     public init(baseURLString: String!) {
+        super.init()
         let components = NSURLComponents(string: baseURLString)
-        self.scheme = components?.scheme
-        self.host = components?.host
-        self.path = components?.path
+        scheme = components?.scheme
+        host = components?.host
+        path = components?.path
     }
     
     public init(baseURL: NSURL!) {
+        super.init()
         let components = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
-        self.scheme = components?.scheme
-        self.host = components?.host
-        self.path = components?.path
+        scheme = components?.scheme
+        host = components?.host
+        path = components?.path
     }
     
-    private func request(pathComponent: String!, queryItems: [NSURLQueryItem]?) -> NSMutableURLRequest? {
+    public func request(pathComponent: String!, queryItems: [NSURLQueryItem]?) -> NSMutableURLRequest? {
         let components = NSURLComponents()
         components.scheme = scheme
         components.host = host
@@ -53,12 +67,13 @@ public class BasicHTTPRequest: NSObject {
         if var url = components.URL {
             url = url.URLByAppendingPathComponent(pathComponent)
             request = NSMutableURLRequest(URL: url)
+            request?.allHTTPHeaderFields = HTTPHeaderFields
         }
         
         return request
     }
     
-    private func send(request: NSURLRequest!, delegate: BasicHTTPRequestDelegate?) {
+    public func send(request: NSURLRequest!, delegate: BasicHTTPRequestDelegate?) {
         UIApplication.sharedApplication().pushNetworkActivity()
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
@@ -71,7 +86,27 @@ public class BasicHTTPRequest: NSObject {
     public func configure(scheme: String!, host: String!, path: String?) {
         self.scheme = scheme
         self.host = host
-        self.path = path
+        self.path = check(path)
+    }
+    
+    public func configure(baseURLString: String!) {
+        let comps = NSURLComponents(string: baseURLString)
+        scheme = comps?.scheme
+        host = comps?.host
+        path = comps?.path
+    }
+    
+    public func configure(baseURL: NSURL!) {
+        let comps = NSURLComponents(URL: baseURL, resolvingAgainstBaseURL: false)
+        scheme = comps?.scheme
+        host = comps?.host
+        path = comps?.path
+    }
+    
+    public func configure(HTTPHeaders: [String:String]) {
+        for (key, value) in HTTPHeaders {
+            HTTPHeaderFields[key] = value
+        }
     }
     
     public func get(pathComponent: String!, queryItems: [NSURLQueryItem]?, delegate: BasicHTTPRequestDelegate?) {
