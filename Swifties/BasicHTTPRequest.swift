@@ -22,8 +22,6 @@ public class BasicHTTPRequest: NSObject {
         return nil
     }
     
-    
-    
     public override init() {
         super.init()
     }
@@ -110,7 +108,7 @@ public class BasicHTTPRequest: NSObject {
             url = url.URLByAppendingPathComponent(pathComponent)
             var headers = HTTPHeaderFields
             if let heads = headerFields {
-                for (key, value) in headers {
+                for (key, value) in heads {
                     headers[key] = value
                 }
             }

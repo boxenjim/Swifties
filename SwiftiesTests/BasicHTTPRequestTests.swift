@@ -83,8 +83,16 @@ class BasicHTTPRequestTests: XCTestCase {
         XCTAssertNotNil(basicRequest.HTTPHeaderFields["anotherKey"], "should have a value")
         XCTAssertEqual(basicRequest.HTTPHeaderFields, header, "should be identical, expected: \(header) but got: \(basicRequest.HTTPHeaderFields)")
         let request = basicRequest.request(pathComponent: "testPathComp", queryItems: nil, headerFields: nil, bodyParams: nil)
-        let headers = request?.allHTTPHeaderFields
         for (key, value) in header {
+            XCTAssertNotNil(request?.valueForHTTPHeaderField(key), "should have value:\(value) for key:\(key)")
+        }
+    }
+    
+    func testAppendHeaders() {
+        let basicRequest = BasicHTTPRequest(baseURLString: "https://testing.com", HTTPHeaders: ["aTestKey":"aTestValue", "anotherKey":"anotherValue"])
+        let headers = ["oneMoreKey":"oneMoreValue"]
+        let request = basicRequest.request(pathComponent: "newPath", queryItems: nil, headerFields: headers, bodyParams: nil)
+        for (key, value) in headers {
             XCTAssertNotNil(request?.valueForHTTPHeaderField(key), "should have value:\(value) for key:\(key)")
         }
     }
