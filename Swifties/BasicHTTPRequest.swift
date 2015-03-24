@@ -124,90 +124,97 @@ public class BasicHTTPRequest: NSObject {
         return request(NSURL(string: urlString), queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams)
     }
     
-    
-    
-    public func send(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        UIApplication.sharedApplication().pushNetworkActivity()
+    public func task(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) {
-                completionHandler!(json, response, error, self)
+                completionHandler!(json, response, error)
             } else {
-                completionHandler!(data, response, error, self)
+                completionHandler!(data, response, error)
             }
             UIApplication.sharedApplication().popNetworkActivity()
         })
-        task.resume()
+        return task
     }
     
-    public func send(#pathComponent: String!, httpMethod: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
+    public func send(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        UIApplication.sharedApplication().pushNetworkActivity()
+        let task = task(request, completionHandler: completionHandler).resume()
+        task.resume()
+        return task
+    }
+    
+    public func send(#pathComponent: String!, httpMethod: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         if let request = request(pathComponent: pathComponent, queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams) {
             request.HTTPMethod = httpMethod
-            send(request, completionHandler: completionHandler)
+            return send(request, completionHandler: completionHandler)
         }
+        return nil
     }
     
-    public func send(#urlString: String!, httpMethod: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
+    public func send(#urlString: String!, httpMethod: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         if let request = request(urlString: urlString, queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams) {
             request.HTTPMethod = httpMethod
-            send(request, completionHandler: completionHandler)
+            return send(request, completionHandler: completionHandler)
         }
+        return nil
     }
     
-    public func send(url: NSURL!, httpMethod: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
+    public func send(url: NSURL!, httpMethod: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         if let request = request(url, queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams) {
             request.HTTPMethod = httpMethod
-            send(request, completionHandler: completionHandler)
+            return send(request, completionHandler: completionHandler)
         }
+        return nil
     }
     
     
     
-    public func get(#urlString: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        send(urlString: urlString, httpMethod: "GET", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func get(#urlString: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return send(urlString: urlString, httpMethod: "GET", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
     }
     
-    public func get(#url: NSURL!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        send(url, httpMethod: "GET", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func get(#url: NSURL!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return send(url, httpMethod: "GET", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
     }
     
-    public func get(#pathComponent: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        send(pathComponent: pathComponent, httpMethod: "GET", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func get(#pathComponent: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return send(pathComponent: pathComponent, httpMethod: "GET", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
     }
     
-    public func get(#urlString: String!, queryItems: [NSURLQueryItem]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        get(urlString: urlString, queryItems: queryItems, headerFields: nil, bodyParams: nil, completionHandler: completionHandler)
+    public func get(#urlString: String!, queryItems: [NSURLQueryItem]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return get(urlString: urlString, queryItems: queryItems, headerFields: nil, bodyParams: nil, completionHandler: completionHandler)
     }
     
-    public func get(#url: NSURL!, queryItems: [NSURLQueryItem]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        get(url: url, queryItems: queryItems, headerFields: nil, bodyParams: nil, completionHandler: completionHandler)
+    public func get(#url: NSURL!, queryItems: [NSURLQueryItem]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return get(url: url, queryItems: queryItems, headerFields: nil, bodyParams: nil, completionHandler: completionHandler)
     }
     
-    public func get(#pathComponent: String!, queryItems: [NSURLQueryItem]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        get(pathComponent: pathComponent, queryItems: queryItems, headerFields: nil, bodyParams: nil, completionHandler: completionHandler)
+    public func get(#pathComponent: String!, queryItems: [NSURLQueryItem]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return get(pathComponent: pathComponent, queryItems: queryItems, headerFields: nil, bodyParams: nil, completionHandler: completionHandler)
     }
     
     
     
-    public func post(#urlString: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        send(urlString: urlString, httpMethod: "POST", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func post(#urlString: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return send(urlString: urlString, httpMethod: "POST", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
     }
     
-    public func post(#url: NSURL!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        send(url, httpMethod: "POST", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func post(#url: NSURL!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return send(url, httpMethod: "POST", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
     }
     
-    public func post(#pathComponent: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        send(pathComponent: pathComponent, httpMethod: "POST", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func post(#pathComponent: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return send(pathComponent: pathComponent, httpMethod: "POST", queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams, completionHandler: completionHandler)
     }
     
-    public func post(#urlString: String!, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        post(urlString: urlString, queryItems: nil, headerFields: nil, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func post(#urlString: String!, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return post(urlString: urlString, queryItems: nil, headerFields: nil, bodyParams: bodyParams, completionHandler: completionHandler)
     }
-    public func post(#url: NSURL!, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        post(url: url, queryItems: nil, headerFields: nil, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func post(#url: NSURL!, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return post(url: url, queryItems: nil, headerFields: nil, bodyParams: bodyParams, completionHandler: completionHandler)
     }
-    public func post(#pathComponent: String!, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!, BasicHTTPRequest!) -> Void)?) {
-        post(pathComponent: pathComponent, queryItems: nil, headerFields: nil, bodyParams: bodyParams, completionHandler: completionHandler)
+    public func post(#pathComponent: String!, bodyParams: [String:String]?, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+        return post(pathComponent: pathComponent, queryItems: nil, headerFields: nil, bodyParams: bodyParams, completionHandler: completionHandler)
     }
 }
