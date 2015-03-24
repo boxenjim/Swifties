@@ -124,7 +124,7 @@ public class BasicHTTPRequest: NSObject {
         return request(NSURL(string: urlString), queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams)
     }
     
-    public func task(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
+    public func dataTask(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) {
@@ -139,8 +139,8 @@ public class BasicHTTPRequest: NSObject {
     
     public func send(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         UIApplication.sharedApplication().pushNetworkActivity()
-        let task = task(request, completionHandler: completionHandler).resume()
-        task.resume()
+        let task = dataTask(request, completionHandler: completionHandler)
+        task?.resume()
         return task
     }
     
