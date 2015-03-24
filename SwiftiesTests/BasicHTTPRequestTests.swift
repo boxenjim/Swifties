@@ -25,64 +25,64 @@ class BasicHTTPRequestTests: XCTestCase {
     
     func testInitSchemeHostPath() {
         let basicRequest = BasicHTTPRequest(scheme: "testScheme", host: "testHost", path: "testPath", HTTPHeaders: nil)
-        XCTAssert(basicRequest.scheme == "testScheme", "expected testScheme but got \(basicRequest.scheme)")
-        XCTAssert(basicRequest.host == "testHost", "expected testHost but got \(basicRequest.host)")
-        XCTAssert(basicRequest.path == "/testPath", "expected /testPath but got \(basicRequest.path)")
-        let request = basicRequest.request("testPathComp", queryItems: nil)
+        XCTAssert(basicRequest.URLComponents?.scheme == "testScheme", "expected testScheme but got \(basicRequest.URLComponents?.scheme)")
+        XCTAssert(basicRequest.URLComponents?.host == "testHost", "expected testHost but got \(basicRequest.URLComponents?.host)")
+        XCTAssert(basicRequest.URLComponents?.path == "/testPath", "expected /testPath but got \(basicRequest.URLComponents?.path)")
+        let request = basicRequest.request(urlString: "testPathComp", queryItems: nil, headerFields: nil, bodyParams: nil)
         XCTAssert(request?.URL?.absoluteString == "testScheme://testHost/testPath/testPathComp", "got \(request?.URL?.absoluteString)")
     }
     
     func testInitBaseURLString() {
         let basicRequest = BasicHTTPRequest(baseURLString: "testScheme://testHost/testPath", HTTPHeaders: nil)
-        XCTAssert(basicRequest.scheme == "testScheme", "expected testScheme but got \(basicRequest.scheme)")
-        XCTAssert(basicRequest.host == "testHost", "expected testHost but got \(basicRequest.host)")
-        XCTAssert(basicRequest.path == "/testPath", "expected /testPath but got \(basicRequest.path)")
-        let request = basicRequest.request("testPathComp", queryItems: nil)
+        XCTAssert(basicRequest.URLComponents?.scheme == "testScheme", "expected testScheme but got \(basicRequest.URLComponents?.scheme)")
+        XCTAssert(basicRequest.URLComponents?.host == "testHost", "expected testHost but got \(basicRequest.URLComponents?.host)")
+        XCTAssert(basicRequest.URLComponents?.path == "/testPath", "expected /testPath but got \(basicRequest.URLComponents?.path)")
+        let request = basicRequest.request(pathComponent: "testPathComp", queryItems: nil, headerFields: nil, bodyParams: nil)
         XCTAssert(request?.URL?.absoluteString == "testScheme://testHost/testPath/testPathComp", "got \(request?.URL?.absoluteString)")
     }
     
     func testInitBaseURL() {
         let basicRequest = BasicHTTPRequest(baseURL: NSURL(string: "testScheme://testHost/testPath"), HTTPHeaders: nil)
-        XCTAssert(basicRequest.scheme == "testScheme", "expected testScheme but got \(basicRequest.scheme)")
-        XCTAssert(basicRequest.host == "testHost", "expected testHost but got \(basicRequest.host)")
-        XCTAssert(basicRequest.path == "/testPath", "expected /testPath but got \(basicRequest.path)")
-        let request = basicRequest.request("testPathComp", queryItems: nil)
+        XCTAssert(basicRequest.URLComponents?.scheme == "testScheme", "expected testScheme but got \(basicRequest.URLComponents?.scheme)")
+        XCTAssert(basicRequest.URLComponents?.host == "testHost", "expected testHost but got \(basicRequest.URLComponents?.host)")
+        XCTAssert(basicRequest.URLComponents?.path == "/testPath", "expected /testPath but got \(basicRequest.URLComponents?.path)")
+        let request = basicRequest.request(pathComponent: "testPathComp", queryItems: nil, headerFields: nil, bodyParams: nil)
         XCTAssert(request?.URL?.absoluteString == "testScheme://testHost/testPath/testPathComp", "got \(request?.URL?.absoluteString)")
     }
     
     func testConfigureSchemeHostPath() {
         let basicRequest = BasicHTTPRequest(scheme: "testScheme", host: "testHost", path: "testPath", HTTPHeaders: nil)
         basicRequest.configure("newTestScheme", host: "newTestHost", path: "newTestPath")
-        XCTAssert(basicRequest.scheme == "newTestScheme", "expected newTestScheme but got \(basicRequest.scheme)")
-        XCTAssert(basicRequest.host == "newTestHost", "expected newTestHost but got \(basicRequest.host)")
-        XCTAssert(basicRequest.path == "/newTestPath", "expected newTestPath but got \(basicRequest.path)")
+        XCTAssert(basicRequest.URLComponents?.scheme == "newTestScheme", "expected newTestScheme but got \(basicRequest.URLComponents?.scheme)")
+        XCTAssert(basicRequest.URLComponents?.host == "newTestHost", "expected newTestHost but got \(basicRequest.URLComponents?.host)")
+        XCTAssert(basicRequest.URLComponents?.path == "/newTestPath", "expected newTestPath but got \(basicRequest.URLComponents?.path)")
     }
     
     func testConfigureBaseURLString() {
         let basicRequest = BasicHTTPRequest(baseURLString: "newTestScheme://newTestHost/newTestPath", HTTPHeaders: nil)
         basicRequest.configure("newTestScheme", host: "newTestHost", path: "newTestPath")
-        XCTAssert(basicRequest.scheme == "newTestScheme", "expected newTestScheme but got \(basicRequest.scheme)")
-        XCTAssert(basicRequest.host == "newTestHost", "expected newTestHost but got \(basicRequest.host)")
-        XCTAssert(basicRequest.path == "/newTestPath", "expected /newTestPath but got \(basicRequest.path)")
+        XCTAssert(basicRequest.URLComponents?.scheme == "newTestScheme", "expected newTestScheme but got \(basicRequest.URLComponents?.scheme)")
+        XCTAssert(basicRequest.URLComponents?.host == "newTestHost", "expected newTestHost but got \(basicRequest.URLComponents?.host)")
+        XCTAssert(basicRequest.URLComponents?.path == "/newTestPath", "expected /newTestPath but got \(basicRequest.URLComponents?.path)")
     }
     
     func testConfigureBaseURL() {
         let basicRequest = BasicHTTPRequest(baseURL: NSURL(string: "newTestScheme://newTestHost/newTestPath"), HTTPHeaders: nil)
         basicRequest.configure("newTestScheme", host: "newTestHost", path: "newTestPath")
-        XCTAssert(basicRequest.scheme == "newTestScheme", "expected newTestScheme but got \(basicRequest.scheme)")
-        XCTAssert(basicRequest.host == "newTestHost", "expected newTestHost but got \(basicRequest.host)")
-        XCTAssert(basicRequest.path == "/newTestPath", "expected /newTestPath but got \(basicRequest.path)")
+        XCTAssert(basicRequest.URLComponents?.scheme == "newTestScheme", "expected newTestScheme but got \(basicRequest.URLComponents?.scheme)")
+        XCTAssert(basicRequest.URLComponents?.host == "newTestHost", "expected newTestHost but got \(basicRequest.URLComponents?.host)")
+        XCTAssert(basicRequest.URLComponents?.path == "/newTestPath", "expected /newTestPath but got \(basicRequest.URLComponents?.path)")
     }
 
     func testConfigureHeader() {
         // This is an example of a functional test case.
         let basicRequest = BasicHTTPRequest(baseURLString: "https://testing.com", HTTPHeaders: nil)
         let header = ["aTestKey":"aTestValue", "anotherKey":"anotherValue"]
-        basicRequest.configure(header)
+        basicRequest.configure(HTTPHeaders: header)
         XCTAssertNotNil(basicRequest.HTTPHeaderFields["aTestKey"], "should have a value")
         XCTAssertNotNil(basicRequest.HTTPHeaderFields["anotherKey"], "should have a value")
         XCTAssertEqual(basicRequest.HTTPHeaderFields, header, "should be identical, expected: \(header) but got: \(basicRequest.HTTPHeaderFields)")
-        let request = basicRequest.request("testPathComp", queryItems: nil)
+        let request = basicRequest.request(pathComponent: "testPathComp", queryItems: nil, headerFields: nil, bodyParams: nil)
         let headers = request?.allHTTPHeaderFields
         for (key, value) in header {
             XCTAssertNotNil(request?.valueForHTTPHeaderField(key), "should have value:\(value) for key:\(key)")
