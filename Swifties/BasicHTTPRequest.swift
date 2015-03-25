@@ -22,6 +22,16 @@ public class BasicHTTPRequest: NSObject {
         return nil
     }
     
+    private func append(headerFields: [String:String]?) -> [String:String]? {
+        var headers = HTTPHeaderFields
+        if let heads = headerFields{
+            for (key, value) in heads {
+                headers[key] = value
+            }
+        }
+        return headers
+    }
+    
     public override init() {
         super.init()
     }
@@ -106,20 +116,14 @@ public class BasicHTTPRequest: NSObject {
         
         if var url = URLComponents?.URL {
             url = url.URLByAppendingPathComponent(pathComponent)
-            var headers = HTTPHeaderFields
-            if let heads = headerFields {
-                for (key, value) in heads {
-                    headers[key] = value
-                }
-            }
-            return request(url, queryItems: queryItems, headerFields: headers, bodyParams: bodyParams)
+            return request(url, queryItems: queryItems, headerFields: append(headerFields), bodyParams: bodyParams)
         }
         
         return nil
     }
     
     public func request(#urlString: String!, queryItems: [NSURLQueryItem]?, headerFields: [String:String]?, bodyParams: [String:AnyObject]?) -> NSMutableURLRequest? {
-        return request(NSURL(string: urlString), queryItems: queryItems, headerFields: headerFields, bodyParams: bodyParams)
+        return request(NSURL(string: urlString), queryItems: queryItems, headerFields: append(headerFields), bodyParams: bodyParams)
     }
     
     public func dataTask(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
