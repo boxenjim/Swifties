@@ -130,9 +130,9 @@ public class BasicHTTPRequest: NSObject {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if let json: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: nil) {
-                completionHandler!(json, response, error)
+                completionHandler?(json, response, error)
             } else {
-                completionHandler!(data, response, error)
+                completionHandler?(data, response, error)
             }
             UIApplication.sharedApplication().popNetworkActivity()
         })
