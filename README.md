@@ -1,6 +1,8 @@
 # Swifties
 Swift + Recipies
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 ## Installation
 ### Carthage
 A simple, decentralized dependency manager for Cocoa, [Carthage](https://github.com/Carthage/Carthage) is intended
