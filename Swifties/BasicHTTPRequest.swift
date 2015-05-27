@@ -36,9 +36,9 @@ public class BasicHTTPRequest: NSObject {
         super.init()
     }
     
-    public convenience init(scheme: String!, host: String!, path: String?, HTTPHeaders: [String:String]?) {
+    public convenience init(scheme: String!, host: String!, path: String?, port: Int?, HTTPHeaders: [String:String]?) {
         self.init()
-        configure(scheme, host: host, path: path)
+        configure(scheme, host: host, path: path, port: port)
         if let headers = HTTPHeaders {
             configure(HTTPHeaders: headers)
         }
@@ -62,11 +62,12 @@ public class BasicHTTPRequest: NSObject {
     
     
     
-    public func configure(scheme: String!, host: String!, path: String?) {
+    public func configure(scheme: String!, host: String!, path: String?, port: Int?) {
         URLComponents = NSURLComponents()
         URLComponents?.scheme = scheme
         URLComponents?.host = host
         URLComponents?.path = self.check(path)
+        URLComponents?.port = port
     }
     
     public func configure(#baseURLString: String!) {
