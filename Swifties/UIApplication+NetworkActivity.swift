@@ -23,22 +23,20 @@ public extension UIApplication {
     }
     
     public func pushNetworkActivity() {
-        networkActivityCount++
-        refreshNetworkActivityIndicator()
+        refreshNetworkActivityIndicator(count: networkActivityCount++)
     }
     
     public func popNetworkActivity() {
-        networkActivityCount--
-        refreshNetworkActivityIndicator()
+        refreshNetworkActivityIndicator(count: networkActivityCount--)
     }
     
     public func resetNetworkActivity() {
-        networkActivityCount = 0
-        refreshNetworkActivityIndicator()
+        refreshNetworkActivityIndicator(count: 0)
     }
     
-    func refreshNetworkActivityIndicator() {
+    func refreshNetworkActivityIndicator(#count: Int) {
         dispatch_async(dispatch_get_main_queue(), {
+            self.networkActivityCount = count
             let active: Bool = self.networkActivityCount > 0
             self.networkActivityIndicatorVisible = active
         })
