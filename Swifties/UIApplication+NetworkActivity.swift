@@ -23,11 +23,11 @@ public extension UIApplication {
     }
     
     public func pushNetworkActivity() {
-        refreshNetworkActivityIndicator(count: networkActivityCount++)
+        refreshNetworkActivityIndicator(count: networkActivityCount + 1)
     }
     
     public func popNetworkActivity() {
-        refreshNetworkActivityIndicator(count: networkActivityCount--)
+        refreshNetworkActivityIndicator(count: networkActivityCount - 1)
     }
     
     public func resetNetworkActivity() {
