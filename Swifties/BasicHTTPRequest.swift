@@ -141,13 +141,13 @@ public class BasicHTTPRequest: NSObject {
                     completionHandler?(data, response, error)
                 })
             }
-            UIApplication.sharedApplication().popNetworkActivity()
+            UIApplication.sharedApplication().popNetworkActivity(closure: nil)
         })
         return task
     }
     
     public func send(request: NSURLRequest!, completionHandler: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
-        UIApplication.sharedApplication().pushNetworkActivity()
+        UIApplication.sharedApplication().pushNetworkActivity(closure: nil)
         let task = dataTask(request, completionHandler: completionHandler)
         task?.resume()
         return task

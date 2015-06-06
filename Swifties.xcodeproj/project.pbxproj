@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9B1B69DC1AB764E200B26334 /* BasicHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1B69DB1AB764E200B26334 /* BasicHTTPRequest.swift */; };
+		9B206D961B22674800CA318E /* Concurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B206D951B22674800CA318E /* Concurrency.swift */; };
+		9B206D971B22674800CA318E /* Concurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B206D951B22674800CA318E /* Concurrency.swift */; };
 		9B25628B1ABB36B0007B8D0F /* BasicHTTPRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B25628A1ABB36B0007B8D0F /* BasicHTTPRequestTests.swift */; };
 		9B25628C1ABB36D2007B8D0F /* BasicHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1B69DB1AB764E200B26334 /* BasicHTTPRequest.swift */; };
 		9B25628D1ABB36EC007B8D0F /* UIApplication+NetworkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B312D471A8BE9BC00702F7D /* UIApplication+NetworkActivity.swift */; };
@@ -37,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		9B1B69DB1AB764E200B26334 /* BasicHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicHTTPRequest.swift; sourceTree = "<group>"; };
+		9B206D951B22674800CA318E /* Concurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Concurrency.swift; sourceTree = "<group>"; };
 		9B25628A1ABB36B0007B8D0F /* BasicHTTPRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicHTTPRequestTests.swift; sourceTree = "<group>"; };
 		9B28B65E1AAE60CF00EFA59F /* Switchboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switchboard.swift; sourceTree = "<group>"; };
 		9B312D2B1A8BE9B300702F7D /* Swifties.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swifties.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +94,7 @@
 		9B312D2D1A8BE9B300702F7D /* Swifties */ = {
 			isa = PBXGroup;
 			children = (
+				9B206D951B22674800CA318E /* Concurrency.swift */,
 				9B1B69DB1AB764E200B26334 /* BasicHTTPRequest.swift */,
 				9B28B65E1AAE60CF00EFA59F /* Switchboard.swift */,
 				9B312D881A8C000500702F7D /* BasicDataModel.swift */,
@@ -239,6 +243,7 @@
 			files = (
 				9BED47EF1B14FF590074A4C6 /* UIApplication+Helpers.swift in Sources */,
 				9BF960DE1A9BDBFC00136C33 /* NSString+Helpers.swift in Sources */,
+				9B206D961B22674800CA318E /* Concurrency.swift in Sources */,
 				9B312D891A8C000500702F7D /* BasicDataModel.swift in Sources */,
 				9B28B65F1AAE60CF00EFA59F /* Switchboard.swift in Sources */,
 				9B1B69DC1AB764E200B26334 /* BasicHTTPRequest.swift in Sources */,
@@ -254,6 +259,7 @@
 				9B25628C1ABB36D2007B8D0F /* BasicHTTPRequest.swift in Sources */,
 				9B25628D1ABB36EC007B8D0F /* UIApplication+NetworkActivity.swift in Sources */,
 				9B25628B1ABB36B0007B8D0F /* BasicHTTPRequestTests.swift in Sources */,
+				9B206D971B22674800CA318E /* Concurrency.swift in Sources */,
 				9B25628E1ABB36F1007B8D0F /* NSString+Helpers.swift in Sources */,
 				9B312D3E1A8BE9B400702F7D /* SwiftiesTests.swift in Sources */,
 				9BED47F01B14FF590074A4C6 /* UIApplication+Helpers.swift in Sources */,
