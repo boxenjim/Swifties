@@ -11,10 +11,25 @@ import CoreData
 
 public class BasicDataModel: NSObject {
     
+    private var dataStoreType: String?
+    private var dataModelName: String?
+    
+    convenience init(storeType: String?, modelName: String?) {
+        self.init()
+        dataStoreType = storeType
+        dataModelName = modelName
+    }
+    
+    lazy var storeType: String = {
+        if let type = self.dataStoreType { return type }
+        return NSSQLiteStoreType
+        }()
+    
     // MARK: - Filesystem hooks
     lazy var modelName: String = {
+        if let name = self.dataModelName { return name }
         return NSBundle.mainBundle().bundleIdentifier!.pathExtension
-    }()
+        }()
     
     lazy var modelURL: NSURL = {
         let filename: String = self.modelName
@@ -68,7 +83,7 @@ public class BasicDataModel: NSObject {
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
         let options = [NSMigratePersistentStoresAutomaticallyOption:true, NSInferMappingModelAutomaticallyOption:true]
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.localStoreURL, options: options, error: &error) == nil {
+        if coordinator!.addPersistentStoreWithType(self.storeType, configuration: nil, URL: self.localStoreURL, options: options, error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()

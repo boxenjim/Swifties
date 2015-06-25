@@ -145,6 +145,15 @@ public class BasicHTTPRequest: NSObject {
         return task
     }
     
+    // TODO: this is unfinished, figure it out
+    public func downloadTask(request: NSURLRequest!, closure: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDownloadTask? {
+        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        let task = session.downloadTaskWithRequest(request, completionHandler: { (url, response, error) -> Void in
+            
+        })
+        return task
+    }
+    
     public func send(request: NSURLRequest!, closure: ((AnyObject!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask? {
         let task = dataTask(request, closure: closure)
         task?.resume()

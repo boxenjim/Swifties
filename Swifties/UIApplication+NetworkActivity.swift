@@ -8,43 +8,44 @@
 
 import UIKit
 
-var networkActivityCount: Int = 0
+var networkActivityKey: Character = "0"
 
 public extension UIApplication {
     
-    private func count() -> Int {
-        return Concurrency.synchronize(lockObj: self) {
-            return networkActivityCount
+    private var networkActivityCount: Int {
+        get {
+            return objc_getAssociatedObject(self, &networkActivityKey) as? Int ?? 0
+        }
+        
+        set {
+            objc_setAssociatedObject(self, &networkActivityKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
         }
     }
     
-    public func pushNetworkActivity(#closure: (() -> Void)?) {
+    public func pushNetworkActivity() {
         Concurrency.synchronize(lockObj: self) {
-            networkActivityCount++
+            self.networkActivityCount++
         }
         refreshNetworkActivityIndicator()
-        closure?()
     }
     
-    public func popNetworkActivity(#closure: (() -> Void)?) {
+    public func popNetworkActivity() {
         Concurrency.synchronize(lockObj: self) {
-            networkActivityCount--
+            self.networkActivityCount--
         }
         refreshNetworkActivityIndicator()
-        closure?()
     }
     
-    public func resetNetworkActivity(#closure: (() -> Void)?) {
+    public func resetNetworkActivity() {
         Concurrency.synchronize(lockObj: self) {
-            networkActivityCount = 0
+            self.networkActivityCount = 0
         }
         refreshNetworkActivityIndicator()
-        closure?()
     }
     
-    func refreshNetworkActivityIndicator() {
+    private func refreshNetworkActivityIndicator() {
         dispatch_async(dispatch_get_main_queue(), {
-            let active: Bool = networkActivityCount > 0
+            let active: Bool = self.networkActivityCount > 0
             self.networkActivityIndicatorVisible = active
         })
     }
