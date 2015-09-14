@@ -6,9 +6,11 @@ Swift + Recipies
 ## Installation
 ### Carthage
 A simple, decentralized dependency manager for Cocoa, [Carthage](https://github.com/Carthage/Carthage) is intended
-to be the simplest way to add frameworks to your Cocoa application.
+to be the simplest way to add frameworks to your Cocoa application. 
 
-You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+[Install Carthage](https://github.com/Carthage/Carthage#installing-carthage) by downloading the latest stable release
+
+or you can install Carthage with [Homebrew](http://brew.sh/) using the following command:
 
 ```bash
 $ brew update
